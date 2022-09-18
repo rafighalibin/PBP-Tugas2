@@ -1,0 +1,112 @@
+[
+    {
+        "model":"mywatchlist.MyWatchList",
+        "pk":1,
+        "fields":{
+            "watched" :  true,
+            "title" : "La La Land",
+            "rating" :  5,
+            "release_date" :  "December 9, 2016",
+            "review" :  "Bagi saya film musical Damien Chazelle ini diracik dengan 'bumbu' yang lengkap, selain menyuguhkan deretan lagu (soundtrack) yang apik, penonton juga dimanjakan oleh sinematografi yang memukau."
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchList",
+        "pk":2,
+        "fields":{
+            "watched" :  true,
+            "title" : "Parasite",
+            "rating" :  4,
+            "release_date" :  "June 21, 2019",
+            "review" :  "Cerita dalam film ini menceritakan tentang perjuangan keluarga Kim yang tinggal di lingkungan yang miskin. Suatu hati Ki Woo mendapatkan kesempatan untuk bekerja sebagai guru les di sebuah keluarga Mr. Park yang sangat kaya raya. Setelah berhasil diterima Ki Woo ingin membuat keluarganya yang berada di zona kemiskinan untuk pergi bekerja bersama keluarga Park. "
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchList",
+        "pk":3,
+        "fields":{
+            "watched" :  true,
+            "title" : "Top Gun",
+            "rating" :  4,
+            "release_date" :  "May 16, 1986",
+            "review" :  "Keluarga Kim yang berjuang melihat peluang ketika putranya mulai bekerja untuk keluarga Park yang kaya. Segera, mereka semua menemukan cara untuk bekerja di rumah yang sama dan mulai menjalani kehidupan parasit."
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchList",
+        "pk":4,
+        "fields":{
+            "watched" :  false,
+            "title" : "500 Days of Summer",
+            "rating" :  4,
+            "release_date" :  "July 17, 2009",
+            "review" :  "Tom meninjau kembali perkiraan satu tahun yang dia bagi dengan Summer, gadis yang dia pikir bisa menghabiskan sisa hidupnya dengannya. Dia, di sisi lain, tidak percaya pada hubungan atau pacar."
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchList",
+        "pk":5,
+        "fields":{
+            "watched" :  false,
+            "title" : "The Shawshank Redemption",
+            "rating" :  4,
+            "release_date" :  "September 22, 1994",
+            "review" :  "This is the sole film in the world that is over 2 hours and yet I wanted another 2. The story, the acting, the sense of justice, the acting, the triumph of good but not in a linear manner, the acting and certainly the authentic feel of the era make this a justified masterpiece."
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchList",
+        "pk":6,
+        "fields":{
+            "watched" :  true,
+            "title" : "The Godfather",
+            "rating" :  4,
+            "release_date" :  "March 24, 1972",
+            "review" :  "The greatest movie of all time! One of the best films of all time, an absolute masterpiece. The Godfather is arguably the best gangster drama as well as setting the standard for cinema."
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchList",
+        "pk":7,
+        "fields":{
+            "watched" :  true,
+            "title" : "The Dark Knight",
+            "rating" :  5,
+            "release_date" :  "July 18, 2008",
+            "review" :  "Heath Ledger If someone else acted as Joker, I would give the movie 7-8 stars. The majority of people ended up loving the villain more than the hero, and that rarely happends in movies."
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchList",
+        "pk":8,
+        "fields":{
+            "watched" :  true,
+            "title" : "12 Angry Men",
+            "rating" :  5,
+            "release_date" :  "April 15, 1957",
+            "review" :  "Dont judge by the age! For a while I was not very receptive to watching films that were too old. I always thought it would be difficult to get involved in the context, I couldn't be more wrong! 12 angry men, is a great example of how a simple film can do magic with good actors, and what great actors they are!"
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchList",
+        "pk":9,
+        "fields":{
+            "watched" :  true,
+            "title" : "Schindler's List",
+            "rating" :  3,
+            "release_date" :  "February 4, 1994",
+            "review" :  "Movie brought to life this great man who really shouldn't be forgotten, and thanks to Steven Spielberg, I think he'll be remembered for generations to come. Movie like this should be made once in a while. Not that movie should be used for evangelistic purposes but some story should be told well, and movie is still the best vehicle"
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchList",
+        "pk":10,
+        "fields":{
+            "watched" :  false,
+            "title" : "Pulp Fiction",
+            "rating" :  4,
+            "release_date" :  "October 14, 1994",
+            "review" :  "One of the early scenes in Pulp Fiction features two hit-men discussing what a Big Mac is called in other countries. Their dialogue is witty and entertaining, and it's also disarming, because it makes these two thugs seem all too normal. If you didn't know better, you might assume these were regular guys having chit-chat on their way to work. Other than the comic payoff at the end of the scene, in which they use parts of this conversation to taunt their victims, their talk has no relevance to anything in the film, or to anything else, for that matter. Yet without such scenes, Pulp Fiction wouldn't be Pulp Fiction. I get the sense that Tarantino put into the film whatever struck his fancy, and somehow the final product is not only coherent but wonderfully textured."
+        }
+    }
+]

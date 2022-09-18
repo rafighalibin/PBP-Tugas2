@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h5>Nama: </h5>
+<p>{{nama}}</p>
+
+<table>
+    <tr>
+    <th>watched</th>
+    <th>title</th>
+    <th>rating</th>
+    <th>release date</th>
+    <th>review</th>
+    </tr>
+    {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
+    {% for film in list_film %}
+        <tr>
+            <th>{% if film.watched %}
+                Sudah
+                {% else %}
+                Belum
+              {% endif %}</th>
+            <th>{{film.title}}</th>
+            <th>{{film.rating}}</th>
+            <th>{{film.release_date}}</th>
+            <th>{{film.review}}</th>
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock content %}

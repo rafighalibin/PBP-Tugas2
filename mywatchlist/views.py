@@ -5,26 +5,27 @@ from django.core import serializers
 
 data_film_watchlist = MyWatchList.objects.all()
 def show_watchlist(request):
+    context = {
+        'list_film': data_film_watchlist,
+        'nama': 'Rafi Ghalibin Abrar',
+        'id': '2106751354',
+        'pesan' : generate_pesan()
+    }
+    return render(request, "mywatchlist.html", context)
+
+def generate_pesan():
     sudah=0
     belum=0
-    pesan = ""
     for film in data_film_watchlist:
         if film.watched:
             sudah+=1
         else:
             belum+=1
     if sudah>belum:
-        pesan = "kamu belum nonton banyak"
+        return "Selamat, kamu sudah banyak menonton!"
     else:
-        pesan = "kamu sudah nonton banyak"
-    context = {
-        'list_film': data_film_watchlist,
-        'nama': 'Rafi Ghalibin Abrar',
-        'id': '2106751354',
-        'pesan' : pesan
-    }
-    return render(request, "mywatchlist.html", context)
-
+        return "Wah, kamu masih sedikit menonton!"
+    
 def show_xml(request):
     data = MyWatchList.objects.all()
     return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")

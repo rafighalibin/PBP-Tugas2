@@ -21,7 +21,7 @@ def generate_pesan():
             sudah+=1
         else:
             belum+=1
-    if sudah>belum:
+    if sudah>=belum:
         return "Selamat, kamu sudah banyak menonton!"
     else:
         return "Wah, kamu masih sedikit menonton!"

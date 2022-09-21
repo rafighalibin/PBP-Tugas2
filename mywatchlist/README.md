@@ -26,6 +26,7 @@ HTML atau HyperText Markup Language merupakan bahasa yang didesain untuk dimuncu
     python manage.py startapp mywatchlist
 ```
 dan saya mendaftarkan mywatchlist kedalam list INSTALLED_APPS yang ada di settings.py pada folder project_django
+
 2. menambahkan path('mywatchlist/', include('mywatchlist.urls')) kedalam list urlpatterns yang ada di urls.py pada folder project_django
 
 3. membuat model MyWatchList didalam models.py pada project mywatchlist. model ini dibuat berdasarkan deskripsi yang diberikan pada soal dan menggunakan field yang sesuai dengan data type yang dibutuhkan.

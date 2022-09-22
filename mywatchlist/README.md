@@ -20,6 +20,8 @@ HTML atau HyperText Markup Language merupakan bahasa yang didesain untuk dimuncu
 - JSON mendukung penggunaan array sedangkan XML tidak.
 
 # Pentingnya data delivery dalam pengimplementasian sebuah platform
+Data deliveri sangat penting karena dengan platform ynag berbeda beda kita perlu menyamakan data di setiap platform yang digunakan. format data deliveri yang sering digunakan XML dan JSON
+
 # Pengimplementasian
 1. Membuat aplikasi mywatchlist dengan menggunakan command 
 ```

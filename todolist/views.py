@@ -45,6 +45,7 @@ def create_task(request):
             form = form.save(commit=False)
             form.user = request.user
             form.save()
+            messages.success(request, 'Task telah berhasil dibuat!')
             return redirect('todolist:show_todolist')
     context = {'form':form}
     return render(request, 'create-task.html', context)

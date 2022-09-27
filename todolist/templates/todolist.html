@@ -78,6 +78,13 @@
     {% endfor %}
 
 </table>
+{% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+{% endif %}  
 <h1></h1>
 <button><a href="{% url 'todolist:create_task' %}"><h1 class="p2">Buat Task</h1></a></button>
 <button><a href="{% url 'todolist:logout_user' %}"><h1 class="p2">Logout</h1></a></button>

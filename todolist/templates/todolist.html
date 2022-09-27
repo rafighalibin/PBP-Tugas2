@@ -1,16 +1,56 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Tugas 4 Assignment PBP/PBD</h1>
-<h5>Name: </h5>
-<p>{{username}}</p>
 
-<h5>Last login: </h5>
-<p>{{last_login}}</p>
+<style>
+    .button {
+        padding: 14px 24px;
+        border: 0 none;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    th, td {
+        padding: 15px;
+        background-color: #e3e3e3;
+        font-family: Helvetica;
+        font-size:large;
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    .th1{
+        padding: 0px;
+        border: 1px solid rgb(255, 255, 255);
+        border-collapse: collapse;
+        background-color: #ffffff;
+        font-family: Helvetica;
+        font-size:large;
+    }
+    .p2 {
+        font-family: Helvetica;
+        font-size:large;
+    }
+    .p3 {
+        font-family: Helvetica;
+        font-size:xx-large
+    }
+    a {
+        color: #000000;
+        background-color: #3518c5;
+        text-decoration: none;
+    }
+</style>
+<h1 class="p3">Tugas 4 Assignment PBP/PBD</h1>
+<h5 class="p2">Name: </h5>
+<p class="p2">{{username}}</p>
+
+<h5 class="p2">Last login: </h5>
+<p class="p2">{{last_login}}</p>
 
 <table>
+    
     <tr>
-    <th>Sudah Dikerjakan</th>
+    <th>Status</th>
     <th>Judul</th>
     <th>Tanggal</th>
     <th>Deskripsi</th>
@@ -27,20 +67,19 @@
             <th>{{task.date}}</th>
             <th>{{task.desc}}</th>
             <th>{{task.user}}</th>
-            <th>
-                {% if not task.is_finished %}
-                <button><a href="{% url 'todolist:update_task' task.id %}">Task sudah selesai!</a></button>
-                {% endif %}
+            <th class="th1">
+                <button><a href="{% url 'todolist:update_task' task.id %}"><h1 class="p2">Update</h1></a></button>
             </th>
-            <th>
-                <button><a href="{% url 'todolist:delete_task' task.id %}">Hapus Task</a></button>
+            <th class="th1">
+                
+                <button><a href="{% url 'todolist:delete_task' task.id %}"><h1 class="p2">Hapus</h1> </a></button>
             </th>
         </tr>
     {% endfor %}
-    
-</table>
 
-<button><a href="{% url 'todolist:create_task' %}">Buat Task</a></button>
-<button><a href="{% url 'todolist:logout_user' %}">Logout</a></button>
+</table>
+<h1></h1>
+<button><a href="{% url 'todolist:create_task' %}"><h1 class="p2">Buat Task</h1></a></button>
+<button><a href="{% url 'todolist:logout_user' %}"><h1 class="p2">Logout</h1></a></button>
 
 {% endblock content %}

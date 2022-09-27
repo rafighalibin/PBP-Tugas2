@@ -24,7 +24,7 @@ def delete_task(request, id):
 def update_task(request, id):
     task_list = Task.objects.filter(id=id)
     task = task_list[0]
-    task.is_finished = True
+    task.is_finished = not task.is_finished
     task.save()
     return redirect('todolist:show_todolist')
     
@@ -62,14 +62,12 @@ def show_todolist(request):
 
 def register(request):
     form = UserCreationForm()
-
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'Akun telah berhasil dibuat!')
             return redirect('todolist:login_user')
-    
     context = {'form':form}
     return render(request, 'register.html', context)
 

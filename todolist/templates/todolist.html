@@ -34,6 +34,17 @@
         font-family: Helvetica;
         font-size:xx-large
     }
+    .p4 {
+        font-family: Helvetica;
+        color: #13d41a;
+        font-size:medium;
+        -webkit-text-stroke: 0.5px rgb(16, 123, 16);
+    }
+    .p5 {
+        font-family: Helvetica;
+        color: #fe310d;
+        font-size:medium
+    }
     a {
         color: #000000;
         background-color: #3518c5;
@@ -59,9 +70,9 @@
     {% for task in list_task %}
         <tr>
             <th>{% if task.is_finished %}
-                Sudah
+                <h1 class="p4">Sudah</h1>
                 {% else %}
-                Belum
+                <h1 class="p5">Belum</h1>
               {% endif %}</th>
             <th>{{task.title}}</th>
             <th>{{task.date}}</th>

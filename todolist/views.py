@@ -13,15 +13,20 @@ from todolist.models import Task
 from datetime import datetime
 
 @login_required(login_url='/todolist/login/')
-def update_task(request):
-    task_list = Task.objects.filter(user=request.user)
-    print(task_list)
-    context = {
-        'list_task': task_list, 
-        'username': request.user.username,
-        'last_login': request.COOKIES['last_login'],
-    }
-    return render(request, "todolist.html", context)
+def delete_task(request, id):
+    task_list = Task.objects.filter(id=id)
+    task = task_list[0]
+    task.delete()   
+    return redirect('todolist:show_todolist')
+
+
+@login_required(login_url='/todolist/login/')
+def update_task(request, id):
+    task_list = Task.objects.filter(id=id)
+    task = task_list[0]
+    task.is_finished = True
+    task.save()
+    return redirect('todolist:show_todolist')
     
 class TaskForm(ModelForm):
     class Meta:
@@ -49,7 +54,6 @@ def create_task(request):
 @login_required(login_url='/todolist/login/')
 def show_todolist(request):
     task_list = Task.objects.filter(user=request.user)
-    print(task_list)
     context = {
         'list_task': task_list, 
         'username': request.user.username,

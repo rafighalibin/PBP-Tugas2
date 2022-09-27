@@ -27,7 +27,14 @@
             <th>{{task.date}}</th>
             <th>{{task.desc}}</th>
             <th>{{task.user}}</th>
-            <th><button><a href="{% url 'todolist:show_todolist' %}">Task sudah selesai!</a></button></th>
+            <th>
+                {% if not task.is_finished %}
+                <button><a href="{% url 'todolist:update_task' task.id %}">Task sudah selesai!</a></button>
+                {% endif %}
+            </th>
+            <th>
+                <button><a href="{% url 'todolist:delete_task' task.id %}">Hapus Task</a></button>
+            </th>
         </tr>
     {% endfor %}
     

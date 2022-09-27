@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Tugas 4 Assignment PBP/PBD</h1>
+<h5>Name: </h5>
+<p>{{username}}</p>
+
+<h5>Last login: </h5>
+<p>{{last_login}}</p>
+
+<table>
+    <tr>
+    <th>Sudah Dikerjakan</th>
+    <th>Judul</th>
+    <th>Tanggal</th>
+    <th>Deskripsi</th>
+    <th>Pemilik</th>
+    </tr>
+    {% for task in list_task %}
+        <tr>
+            <th>{% if task.is_finished %}
+                Sudah
+                {% else %}
+                Belum
+              {% endif %}</th>
+            <th>{{task.title}}</th>
+            <th>{{task.date}}</th>
+            <th>{{task.desc}}</th>
+            <th>{{task.user}}</th>
+            <th><button><a href="{% url 'todolist:show_todolist' %}">Task sudah selesai!</a></button></th>
+        </tr>
+    {% endfor %}
+    
+</table>
+
+<button><a href="{% url 'todolist:create_task' %}">Buat Task</a></button>
+<button><a href="{% url 'todolist:logout_user' %}">Logout</a></button>
+
+{% endblock content %}

@@ -1,94 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+        <h1 class="p3">Tugas 4 Assignment PBP/PBD</h1>
+    </a>
+    <a>
+        <div>
+            <h4>Nama: </h4>
+            <h5>{{username}}</h5>
+        </div>
+        <a href="{% url 'todolist:logout_user' %}" class="btn btn-primary">Logout</a>
 
-<style>
-    .button {
-        padding: 14px 24px;
-        border: 0 none;
-        font-weight: 700;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-    }
-    th, td {
-        padding: 15px;
-        background-color: #e3e3e3;
-        font-family: Helvetica;
-        font-size:large;
-        border: 1px solid black;
-        border-collapse: collapse;
-    }
-    .th1{
-        padding: 0px;
-        border: 1px solid rgb(255, 255, 255);
-        border-collapse: collapse;
-        background-color: #ffffff;
-        font-family: Helvetica;
-        font-size:large;
-    }
-    .p2 {
-        font-family: Helvetica;
-        font-size:large;
-    }
-    .p3 {
-        font-family: Helvetica;
-        font-size:xx-large
-    }
-    .p4 {
-        font-family: Helvetica;
-        color: #13d41a;
-        font-size:medium;
-        -webkit-text-stroke: 0.5px rgb(16, 123, 16);
-    }
-    .p5 {
-        font-family: Helvetica;
-        color: #fe310d;
-        font-size:medium
-    }
-    a {
-        color: #000000;
-        background-color: #3518c5;
-        text-decoration: none;
-    }
-</style>
-<h1 class="p3">Tugas 4 Assignment PBP/PBD</h1>
-<h5 class="p2">Name: </h5>
-<p class="p2">{{username}}</p>
+    </a>
+</nav>
 
-<h5 class="p2">Last login: </h5>
-<p class="p2">{{last_login}}</p>
 
-<table>
-    
-    <tr>
-    <th>Status</th>
-    <th>Judul</th>
-    <th>Tanggal</th>
-    <th>Deskripsi</th>
-    <th>Pemilik</th>
-    </tr>
-    {% for task in list_task %}
-        <tr>
-            <th>{% if task.is_finished %}
-                <h1 class="p4">Sudah</h1>
-                {% else %}
-                <h1 class="p5">Belum</h1>
-              {% endif %}</th>
-            <th>{{task.title}}</th>
-            <th>{{task.date}}</th>
-            <th>{{task.desc}}</th>
-            <th>{{task.user}}</th>
-            <th class="th1">
-                <button><a href="{% url 'todolist:update_task' task.id %}"><h1 class="p2">Update</h1></a></button>
-            </th>
-            <th class="th1">
-                
-                <button><a href="{% url 'todolist:delete_task' task.id %}"><h1 class="p2">Hapus</h1> </a></button>
-            </th>
-        </tr>
-    {% endfor %}
 
-</table>
+
+
 {% if messages %}
         <ul>
             {% for message in messages %}
@@ -96,8 +26,66 @@
             {% endfor %}
         </ul>
 {% endif %}  
-<h1></h1>
-<button><a href="{% url 'todolist:create_task' %}"><h1 class="p2">Buat Task</h1></a></button>
-<button><a href="{% url 'todolist:logout_user' %}"><h1 class="p2">Logout</h1></a></button>
+<!-- Section: Design Block -->
+<section class=" text-center text-lg-start">
+    <style>
+      .rounded-t-5 {
+        border-top-left-radius: 0.5rem;
+        border-top-right-radius: 0.5rem;
+      }
+  
+      @media (min-width: 992px) {
+        .rounded-tr-lg-0 {
+          border-top-right-radius: 0;
+        }
+  
+        .rounded-bl-lg-5 {
+          border-bottom-left-radius: 0.5rem;
+        }
+      }
+      .card-3{
+    background-image: url(https://ionicframework.com/img/getting-started/theming-card.png);
+      background-repeat: no-repeat;
+    background-position: right;
+    background-size: 80px;
+    transition: transform .5s;
+    }
+    .card:hover{
+        transform: scale(1.05);
 
+    }
+
+
+    </style>
+
+    
+<div class="container py-5 h-100">
+    <div class="card mb-3 py-0">
+        <a href="{% url 'todolist:create_task' %}" class="btn btn-primary">Buat Task</a>
+    </div>
+    {% for task in list_task %}
+    <div class="card mb-3 py-0 ">
+      <div class="row g-0 d-flex align-items-center justify-content-center">
+          <div class="card-body py-5 px-md-5">
+            <h2 class="card-title">{{task.title}} ({{task.date}})</h2>
+                <p class="card-text">{{task.desc}}</p>
+                {% if task.is_finished %}
+                    <h5 class="card-text">Sudah</h5>
+                {% else %}
+                    <h5 class="card-text">Belum</h5>
+                {% endif %}
+            
+            <a href="{% url 'todolist:update_task' task.id %}" class="btn btn-primary">Update</a>
+            <a href="{% url 'todolist:delete_task' task.id %}" class="btn btn-primary">Hapus</a>
+            
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+
+
+
+</div>
+  </section>
 {% endblock content %}

@@ -1,48 +1,63 @@
 {% extends 'base.html' %}
 
 {% block meta %}
-<style>
-    .p2 {
-        font-family: Helvetica;
-        font-size:large
-    }
-    .p3 {
-        font-family: Helvetica;
-        font-size:xx-large
-    }
-    a {
-        color: #000000;
-        text-decoration: none;
-    }
-</style>
+
 <title>Buat Task</title>
 {% endblock meta %}
 
 {% block content %}  
 
-<div class = "login">
-    <h1 class="p2">Buat Task</h1> 
-        <form method="POST" >  
-            {% csrf_token %}  
-            <table>  
-                {{ form.as_table }}  
-                <tr>  
-                    <td></td>
-                    <td><input type="submit" name="submit" value="Daftar"/><button>
-                        <a href="{% url 'todolist:show_todolist' %}">Kembali</a></button>
-                    </td>  
-                </tr>  
-            </table>  
-        </form>
 
-    {% if messages %}  
-        <ul>   
-            {% for message in messages %}  
-                <li>{{ message }}</li>  
-                {% endfor %}  
-        </ul>   
-    {% endif %}
+<section class=" text-center text-lg-start">
+    <style>
+      .rounded-t-5 {
+        border-top-left-radius: 0.5rem;
+        border-top-right-radius: 0.5rem;
+      }
+  
+      @media (min-width: 992px) {
+        .rounded-tr-lg-0 {
+          border-top-right-radius: 0;
+        }
+  
+        .rounded-bl-lg-5 {
+          border-bottom-left-radius: 0.5rem;
+        }
+      }
+    </style>
+    <div class="container py-5 h-100">
+    <div class="card mb-3 py-0">
+      <div class="row g-0 d-flex align-items-center justify-content-center">
+        <div class="col-lg-8">
+          <div class="card-body py-5 px-md-5">
+  
+            <form method="POST" action="">
+                {% csrf_token %}
+                <h1>Buat Task</h1>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="id_title">Judul</label>
+                <input class="form-control" type="text" name="title" maxlength="255" required="" id="id_title">
+                {% if form.title.errors %}
+                <span class="text-danger">{{ form.title.errors }} </span>
+                {% endif %}  
+              </div>
+  
+              <div class="form-outline mb-4">
+                <label class="form-label" for="id_desc">Deskripi</label>
+                <textarea class="form-control" name="desc" cols="40" rows="10" required="" id="id_desc"></textarea>
+                {% if form.desc.errors %}
+                <span class="text-danger">{{ form.desc.errors }} </span>
+                {% endif %} 
+              </div>
+              <input type="submit" class="btn btn-primary btn-block mb-4" value="Daftar">  
+              <a href="{% url 'todolist:show_todolist' %}" class="btn btn-primary btn-block mb-4">Kembali</a>
+              
+            </form>
+        </div>
+          </div>
+        </div>
+      </div>
 
-</div>  
-
+    </div>
+  </section>
 {% endblock content %}

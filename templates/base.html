@@ -1,17 +1,18 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+    />
+    {% block meta %} {% endblock meta %}
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% block meta %}
-  {% endblock meta %}
-</head>
-
-<body>
-  {% block content %}
-  {% endblock content %}
-</body>
-
-</html>
+  <body>
+    {% block content %} 
+    {% endblock content %}
+  </body>
+  </html>

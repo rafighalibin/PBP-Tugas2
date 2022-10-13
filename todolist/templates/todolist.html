@@ -148,7 +148,7 @@
       buttonUpdate.innerHTML = "Update"
 
       var buttonHapus = document.createElement("a")
-      buttonHapus.href = "/todolist/delete-task/" + element.pk
+      buttonHapus.setAttribute('onclick', `deleteTask(${element.pk})`);
       buttonHapus.className = "btn btn-primary "
       buttonHapus.innerHTML = "Hapus"
 
@@ -182,7 +182,6 @@
       dataType: 'json'
     });
   }
-  
   
     
 

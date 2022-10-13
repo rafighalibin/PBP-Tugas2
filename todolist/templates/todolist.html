@@ -11,13 +11,8 @@
             <h5>{{username}}</h5>
         </div>
         <a href="{% url 'todolist:logout_user' %}" class="btn btn-primary">Logout</a>
-
     </a>
 </nav>
-
-
-
-
 
 {% if messages %}
         <ul>
@@ -26,6 +21,7 @@
             {% endfor %}
         </ul>
 {% endif %}  
+
 <!-- Section: Design Block -->
 <section class=" text-center text-lg-start">
     <style>
@@ -44,6 +40,7 @@
         }
       }
       .card{
+
         background-repeat: no-repeat;
         background-position: right;
         background-size: 80px;
@@ -53,38 +50,142 @@
         transform: scale(1.05);
 
     }
+  </style>
+<div class="container py-5 h-100">
+  <div class="card mb-3 py-0">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal">
+      Create Task
+    </button>
+  </div>
+</div>
+<!-- Button trigger modal -->
 
 
-    </style>
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalLabel">Buat Task</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="" id="daftarTask">
+          {% csrf_token %}
+          <div class="form-outline mb-4">
+            <label class="form-label" for="id_title">Judul</label>
+            <input class="form-control" type="text" name="title" maxlength="255" required="" id="id_title">
+            {% if form.title.errors %}
+            <span class="text-danger">{{ form.title.errors }} </span>
+            {% endif %}  
+          </div>
+
+          <div class="form-outline mb-4">
+            <label class="form-label" for="id_desc">Deskripi</label>
+            <textarea class="form-control" name="desc" cols="40" rows="10" required="" id="id_desc"></textarea>
+            {% if form.desc.errors %}
+            <span class="text-danger">{{ form.desc.errors }} </span>
+            {% endif %} 
+          </div>
+          <input type="submit" class="btn btn-primary btn-block mb-4" value="Daftar" id="daftarBtn">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container py-5 h-100"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" 
+  integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+  crossorigin="anonymous">
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+  $(document).ready(() => {
+    $("#daftarBtn").click(createTodo)
+    onload()
+  })
+
+  function onload(){
+    var container = document.getElementsByClassName("container py-5 h-100")[1]
+    container.innerHTML = ""
+
+    $.get("{% url 'todolist:show_json' %}", function (data) {
+    
+    data.forEach(element => {
+      var card = document.createElement("div")
+      card.className = "card mb-3 py-0"
+      
+      var cardContent = document.createElement("div")
+      cardContent.className = "row g-0 d-flex align-items-center justify-content-center"
+      
+      var cardBody = document.createElement("div")
+      cardBody.className = "card-body py-5 px-md-5"
+    
+      var fields = element.fields
+      var title = fields.title
+      var date = fields.date
+      var desc = fields.desc
+      var is_finished = fields.is_finished
+
+      var cardHeader = document.createElement("h2")
+      cardHeader.className = "card-title"
+      cardHeader.innerHTML = title + " (" + date.substring(0,date.indexOf("T")) + ")" 
+
+      var cardText = document.createElement("p")
+      cardText.className = "card-text"
+      cardText.innerHTML = desc 
+      
+      var cardStatus = document.createElement("h5")
+      cardStatus.className = "card-text"
+      cardStatus.innerHTML = (is_finished) ? 'Sudah' : 'Belum' 
+
+      
+      var buttonUpdate = document.createElement("a")
+      buttonUpdate.href = "/todolist/update-task/" + element.pk
+      buttonUpdate.className = "btn btn-primary"
+      buttonUpdate.innerHTML = "Update"
+
+      var buttonHapus = document.createElement("a")
+      buttonHapus.href = "/todolist/delete-task/" + element.pk 
+      buttonHapus.className = "btn btn-primary "
+      buttonHapus.innerHTML = "Hapus"
+
+      cardBody.appendChild(cardHeader)
+      cardBody.appendChild(cardText)
+      cardBody.appendChild(cardStatus)
+      cardBody.appendChild(buttonUpdate)
+      cardBody.appendChild(buttonHapus)
+
+      cardContent.appendChild(cardBody)
+      card.appendChild(cardContent)
+      container.appendChild(card)
+
+      document.body.appendChild(container)
+      }); 
+    })
 
     
-<div class="container py-5 h-100">
-    <div class="card mb-3 py-0">
-        <a href="{% url 'todolist:create_task' %}" class="btn btn-primary">Buat Task</a>
-    </div>
-    {% for task in list_task %}
-    <div class="card mb-3 py-0 ">
-      <div class="row g-0 d-flex align-items-center justify-content-center">
-          <div class="card-body py-5 px-md-5">
-            <h2 class="card-title">{{task.title}} ({{task.date}})</h2>
-                <p class="card-text">{{task.desc}}</p>
-                {% if task.is_finished %}
-                    <h5 class="card-text">Sudah</h5>
-                {% else %}
-                    <h5 class="card-text">Belum</h5>
-                {% endif %}
-            
-            <a href="{% url 'todolist:update_task' task.id %}" class="btn btn-primary">Update</a>
-            <a href="{% url 'todolist:delete_task' task.id %}" class="btn btn-primary">Hapus</a>
-            
-        </div>
-    </div>
-</div>
-{% endfor %}
-</div>
+  }
+  
+  function createTodo(e) {
+     $.ajax({
+      type: 'POST',
+      url: '/todolist/add/',
+      data: $("#daftarTask").serialize(), 
+      success: () => {
+        $("#modal").modal('hide')
+        onload()
+      },
+      dataType: 'json'
+    });
+  }
+  
+  
+    
 
+</script>
 
-
-</div>
-  </section>
+</section>
 {% endblock content %}

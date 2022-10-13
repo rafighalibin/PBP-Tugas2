@@ -1,5 +1,9 @@
+from re import I
 from django.shortcuts import render
 from django.shortcuts import redirect
+
+from django.http import HttpResponse
+from django.core import serializers
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
@@ -10,7 +14,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.forms import ModelForm
 from todolist.models import Task
-from datetime import datetime
+from datetime import date, datetime
 
 @login_required(login_url='/todolist/login/')
 def delete_task(request, id):
@@ -52,14 +56,45 @@ def create_task(request):
 
 
 @login_required(login_url='/todolist/login/')
+def create_task_json(request):
+    if request.method == "POST":
+        task = Task(
+            title = request.POST["title"],
+            desc = request.POST["desc"],
+            user = request.user,
+        )
+        task.save()
+        return HttpResponse(
+            serializers.serialize("json", [task]),
+            content_type="application/json",
+        )
+    return HttpResponse("Invalid method", status_code=405)
+
+@login_required(login_url="/todolist/login")
+def delete_todo(request, id):
+    print(request.method)
+    if request.method == "DELETE":
+        task = Task.objects.filter(id=id).first()
+        if task:
+            task.delete()
+            messages.success(request, "Berhasil dihapus!")
+        else:
+            messages.error(request, "Task tidak ditemukan!")
+
+    return redirect("todolist:show_todolist")
+
+@login_required(login_url='/todolist/login/')
 def show_todolist(request):
-    task_list = Task.objects.filter(user=request.user)
     context = {
-        'list_task': task_list, 
         'username': request.user.username,
         'last_login': request.COOKIES['last_login'],
     }
     return render(request, "todolist.html", context)
+
+@login_required(login_url='/todolist/login/')
+def show_json(request):
+    tasks = Task.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize("json", tasks), content_type="application/json")
 
 def register(request):
     form = UserCreationForm()

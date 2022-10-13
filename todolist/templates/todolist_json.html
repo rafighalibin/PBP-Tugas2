@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+        <h1 class="p3">Tugas 4 Assignment PBP/PBD</h1>
+    </a>
+    <a>
+        <div>
+            <h4>Nama: </h4>
+            <h5>{{username}}</h5>
+        </div>
+        <a href="{% url 'todolist:logout_user' %}" class="btn btn-primary">Logout</a>
+
+    </a>
+</nav>
+
+{% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+{% endif %}  
+<!-- Section: Design Block -->
+<section class=" text-center text-lg-start">
+    <style>
+      .rounded-t-5 {
+        border-top-left-radius: 0.5rem;
+        border-top-right-radius: 0.5rem;
+      }
+  
+      @media (min-width: 992px) {
+        .rounded-tr-lg-0 {
+          border-top-right-radius: 0;
+        }
+  
+        .rounded-bl-lg-5 {
+          border-bottom-left-radius: 0.5rem;
+        }
+      }
+      .card{
+
+        background-repeat: no-repeat;
+        background-position: right;
+        background-size: 80px;
+        transition: transform .5s;
+      }
+    .card:hover{
+        transform: scale(1.05);
+
+    }
+
+
+    </style>
+
+    
+<div class="container py-5 h-100">
+      <div class="card mb-3 py-0">
+        <a href="{% url 'todolist:create_task' %}" class="btn btn-primary">Buat Task</a>
+    </div>
+    
+    {% for task in list_task %}
+    <div class="card mb-3 py-0 ">
+      <div class="row g-0 d-flex align-items-center justify-content-center">
+          <div class="card-body py-5 px-md-5">
+            <h2 class="card-title">{{task.title}} ({{task.date}})</h2>
+                <p class="card-text">{{task.desc}}</p>
+                {% if task.is_finished %}
+                    <h5 class="card-text">Sudah</h5>
+                {% else %}
+                    <h5 class="card-text">Belum</h5>
+                {% endif %}
+            
+            <a href="{% url 'todolist:update_task' task.id %}" class="btn btn-primary">Update</a>
+            <a href="{% url 'todolist:delete_task' task.id %}" class="btn btn-primary">Hapus</a>
+            
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+</div>
+</section>
+<script type="text/javascript">
+  console.log("a")
+
+  var container = document.createElement("div");
+  container.classList.add("row", "row-cols-1", "row-cols-md-4", "g-4");
+
+  function getTask() {
+      container.innerHTML = "";
+      $.get("{% url 'todolist:show_json' %}", function (data) {
+          
+          $.each(data, function (i, value) {
+              // iterate per task
+
+              var field = value.fields;
+              console.log("yez",value);
+
+              var col = document.createElement("div");
+              col.classList.add("col");
+
+              var card = document.createElement("div");
+              card.classList.add("card");
+              col.appendChild(card);
+
+              var header = document.createElement("div");
+              if (field.is_finished == true) {
+                  header.classList.add("card-header", "text-bg-success", "text-center");
+                  header.innerHTML = "Completed";
+              } else {
+                  header.classList.add("card-header", "text-bg-warning", "text-center")
+                  header.innerHTML = "Not Yet Completed";
+              }
+
+              var body = document.createElement("div");
+              body.classList.add("card-body");
+              var title = document.createElement("h5");
+              title.classList.add("card-title");
+              title.innerHTML = field.title;
+              var desc = document.createElement("p");
+              desc.classList.add("card-text");
+              desc.innerHTML = field.description;
+
+              body.appendChild(title);
+              body.appendChild(desc);
+
+              var footer = document.createElement("div");
+              footer.classList.add("card-footer");
+
+              card.appendChild(header);
+              card.appendChild(body);
+              card.appendChild(footer);
+
+              var date = document.createElement("small");
+              date.classList.add("text-muted", "text-center");
+              date.innerHTML = `Created ${field.date}`;
+
+              var updateBtn = document.createElement("a");
+              updateBtn.classList.add("btn", "btn-primary", "btn-sm", "text-end");
+              updateBtn.innerHTML = "Update";
+              updateBtn.href = "/todolist/update_task/" + value.pk + "/";
+
+              var deleteBtn = document.createElement("a");
+              deleteBtn.classList.add("btn", "btn-danger", "btn-sm", "text-end");
+              deleteBtn.innerHTML = "Delete";
+              deleteBtn.setAttribute('onclick', `deleteTask(${value.pk})`);
+
+              footer.appendChild(date);
+              footer.appendChild(deleteBtn);
+              footer.appendChild(updateBtn);
+
+              container.appendChild(col);
+          })
+
+          document.body.appendChild(container)
+
+      })
+  }
+
+  function deleteTask(pk) {
+      var url = `/todolist/delete/${pk}/`;
+      $.ajax({
+          url: `/todolist/delete/${pk}/`,
+          type: "POST",
+          data: {},
+          success: function (result) {
+              getTask();
+          },
+
+          error: function (xhr, resp, text) {
+                  console.log("ada error cuy")
+                  console.log("url",url)
+                  console.log("xhr", xhr)
+                  console.log("resp", resp)
+                  console.log("text", text)
+          }
+      });
+  }
+
+  $(document).ready(function () {
+
+      // GET
+      getTask()
+
+      // POST
+      console.log("cretask")
+      $("#createTask").submit(function (e) {
+          e.preventDefault();
+          console.log("oi oi oi")
+          var actionurl = e.currentTarget;
+          var formJSON = JSON.stringify($("#createTask").serializeJSON());
+          console.log("e", e)
+          console.log("json", formJSON)
+          console.log("actionurl", actionurl)
+
+          $.ajax({
+              type: "POST",
+              url: "{% url 'todolist:todolist_add' %}",
+              data: {
+                  data: formJSON,
+                  csrfmiddlewaretoken: '{{ csrf_token }}'
+              },
+
+              success: function (response) {
+                  $(response).each(function (i, value) {
+                      
+                  });
+                  $('#createTask').each(function () {
+                      this.reset();
+                  });
+                  console.log("mantap sukses");
+                  getTask();
+
+                  $('#exampleModal').modal('toggle');
+              },
+
+              error: function (xhr, resp, text) {
+                  console.log("ada error")
+                  console.log("xhr", xhr)
+                  console.log("resp", resp)
+                  console.log("text", text)
+              }
+          });
+
+      });
+
+  });
+
+
+
+</script>
+{% endblock content %}

@@ -148,7 +148,7 @@
       buttonUpdate.innerHTML = "Update"
 
       var buttonHapus = document.createElement("a")
-      buttonHapus.href = "/todolist/delete-task/" + element.pk 
+      buttonHapus.id = element.pk
       buttonHapus.className = "btn btn-primary "
       buttonHapus.innerHTML = "Hapus"
 
@@ -170,6 +170,7 @@
   }
   
   function createTodo(e) {
+    e.preventDefault()
      $.ajax({
       type: 'POST',
       url: '/todolist/add/',

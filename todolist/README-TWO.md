@@ -5,11 +5,7 @@ Pemrograman asynchronous memungkinkan program untuk mengeksekusi program tanpa m
 Paradigma event-driven programming di mana alur program didasarkan atas event yang dilakukan antara user dan client. Sehingga terjadi pengiriman pesan yang berupa event yang akan diproses. Penerapan pada tugas ini yaitu onReady dimana program menunggu dokumen untuk load secara penuh untuk menjalankan program
 
 # Jelaskan penerapan asynchronous programming pada AJAX.
-TODO NOL BESAR
-TODO NOL BESAR
-TODO NOL BESAR
-TODO NOL BESAR
-dengan AJAX memungkinkan program untuk tetap berjalan tanpa dilakukan refresh page dengan cara 
+dengan AJAX memungkinkan program untuk tetap berjalan tanpa dilakukan refresh page dengan cara memberikan pesan yang berisikan data2 yang dibutuhkan views untuk melakukan perubahan pada page
 
 # Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.
 - membuat method yang mengembalikan data task user dalam bentuk json dan melakukan routing 
